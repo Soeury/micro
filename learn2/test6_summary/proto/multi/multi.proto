@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "micro/learn2/test6_summary/proto/multi";
+
+package multi;
+
+service Multi {
+    rpc Multiply(MultiRequest) returns (MultiResponse){}
+}
+
+message MultiRequest {
+    int64 figure1 = 1;
+    int64 figure2 = 2;
+}
+
+message MultiResponse {
+    int64 res1 = 1;
+    int64 res2 = 2;
+}

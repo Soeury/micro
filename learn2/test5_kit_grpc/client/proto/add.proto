@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option go_package = "micro/learn2/test5_kit_grpc/client/proto";
+
+package proto;
+
+service Add {
+    rpc Sum(SumRequest) returns (SumResponse){}
+    rpc Append(AppendRequest) returns (AppendResponse){}
+}
+
+message SumRequest {
+    int64 a = 1;
+    int64 b = 2;
+}
+
+message SumResponse {
+    int64 value = 1;
+    string err = 2;
+}
+
+message AppendRequest {
+    string a = 1;
+    string b = 2;
+}
+
+message AppendResponse {
+    string value = 1;
+    string err = 2;
+}

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "micro/learn2/test6_summary/proto/trim";
+
+package trim;
+
+service Trim {
+    rpc TrimSpace (TrimRequest) returns (TrimResponse){}
+}
+
+message TrimRequest {
+    string word1 = 1;
+}
+
+message TrimResponse {
+    string ret1 = 1;
+}

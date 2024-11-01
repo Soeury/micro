@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "micro/learn2/test2_register/client/proto";
+
+package proto;
+
+service Greeter {
+    rpc SayHello(helloRequest) returns (helloResponse){}
+}
+
+message helloRequest {
+    string Name = 1;
+}
+
+message helloResponse {
+    string Reply = 1;
+}
