@@ -1,0 +1,18 @@
+syntax = "proto3"; 
+
+option go_package = "micro/learn1/test4/client/proto";
+
+package proto;
+
+service Greeter {
+    rpc Add (AddRequest) returns (AddResponse){}
+}
+
+message AddRequest {
+    int64 Num1 = 1; 
+    int64 Num2 = 2;
+}
+
+message AddResponse {
+    int64 ret = 1;
+}

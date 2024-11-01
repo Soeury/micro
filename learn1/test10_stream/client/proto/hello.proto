@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option go_package = "micro/learn1/test10_stream/client/proto";
+
+package proto;
+
+service Greeter {
+    // 基础的 rpc 服务
+    rpc SayHello(HelloRequest) returns (HelloResponse){}
+
+    // 客户端流式
+    rpc LotsOfGreetings(stream HelloRequest) returns (HelloResponse);
+}
+
+message HelloRequest {
+    string Name = 1;
+}
+
+message HelloResponse {
+    string Reply = 1;
+}

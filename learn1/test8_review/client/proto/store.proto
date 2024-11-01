@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+option go_package = "micro/learn1/test8_review/client/proto";
+
+package proto;
+
+// 引入 Any 类型，像这种包引入的引用的时候必须写明路径
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/field_mask.proto";
+import "google/protobuf/any.proto"; 
+
+service Sale{
+    rpc Products(Things) returns (Response){}
+    rpc Update(UpdateThings) returns (Response){}
+}
+
+message Things{
+    int64 Pid = 1;
+    string Name = 2;
+    string Grade = 3;
+    google.protobuf.Int64Value Number = 4;
+
+    message Price {
+        google.protobuf.DoubleValue Purchase = 1;
+        google.protobuf.DoubleValue Sell = 2;
+        google.protobuf.DoubleValue Profit = 3;
+    }
+
+    Price Money = 5;
+    oneof PayWay {
+        string WeChat = 6;
+        string AliPay = 7;
+        string Cash = 8;
+    }
+}
+
+message UpdateThings {
+    string Op = 1;
+    Things Thing = 2;
+    google.protobuf.FieldMask UpdateMask = 3;
+}
+
+message Response{
+    int64 Code = 1;
+    string Message = 2;
+    google.protobuf.Any Data = 3;
+}

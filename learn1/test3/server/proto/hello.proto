@@ -1,0 +1,41 @@
+syntax = "proto3";  // 版本声明
+
+option go_package = "micro/learn1/test3/server/proto";  // 导入路径声明
+
+package proto;  // proto文件模块
+
+// 定义服务
+service Greeter {
+    // 定义方法
+    rpc SayHello (HelloRequest) returns (HelloResponse){}
+}
+
+// 定义消息
+// 每一个消息中的字段编号是唯一的，最好使用 [0-15] 之内的数字，一个消息内部的字段编号不能重复
+// 每一个消息内部的字段前面还有一个可选的参数:  [singular]  [repeated]
+//    -1. singular 表示这个参数可传可不传
+//    -2. repeated 表示这个参数可以传入多次
+
+// 加入我们现在需要删除某个消息编号为3的字段，需要在消息内部加上:
+// reserved 3;
+// 之后如果要添加字段的话编号3就不能使用了，必须使用其他的编号
+message HelloRequest {
+    string name = 1; // 字段序号
+}
+
+message HelloResponse {
+    string reply = 1; 
+}
+
+// gRPC 使用步骤
+//   -1. 编写 .proto 文件
+//   -2. 生成指定语言的代码(server , client)
+//   -3. 编写业务逻辑
+
+// 第二步，在当前终端输入 :
+// protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative learn1/test3/server/proto/hello.proto
+// 注意这里的路径要从 init 的地方开始写
+// 之后会在定义的 proto 目录下生成两个文件
+
+// 最后，在 server.go 中写好我们需要对外提供的服务，以及相关注册等 ，至此，服务器端代码已经编写完成
+ 

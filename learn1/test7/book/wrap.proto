@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option go_package = "learn1/test7/book";
+
+package book;
+
+// 这个包用来判断输入的值是零值还是未输入值(底层:加一层结构体判断是否输入值)
+// os:  其实就是自定义的类型来替换最底层的类型
+// 注意导入的 field_mask 包是这个(忘记了可以去c盘查看源代码位置)
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/field_mask.proto"; 
+
+message Book {
+    string Title = 1;
+    string Author = 2;
+    // int64 price = 3; // 这里无法判断  -1.输入的值是零值  -2.还是未输入值
+    google.protobuf.Int64Value Price = 3;
+    google.protobuf.DoubleValue SalePrice = 4;
+    google.protobuf.StringValue Content = 5;
+
+    // 这里给 book 嵌套一个消息,嵌套的消息必须在定义一个字段才能使用内部的字段
+    message Info {
+        string teacher = 1;
+        string art = 2;
+    }
+    Info another = 6; // 这里必须再定义
+}
+
+message Book2 {
+    string Title =1;
+    string Author = 2;
+    google.protobuf.Int64Value Price = 3;
+}
+
+message UpdataBook {
+    // 操作人
+    string op = 1;
+    // 要更新的书籍
+    Book book = 2;
+    // 添加这一条来记录需要更新的字段
+    google.protobuf.FieldMask update_mask = 3;
+}
+
+// protoc --go_out=. --go_opt=paths=source_relative learn1/test7/book/wrap.proto
+// protoc --go_out=. --go_opt=paths=source_relative path.....

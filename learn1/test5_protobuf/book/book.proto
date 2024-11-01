@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package = "micro/learn1/test5_protobuf/book";
+
+package book;
+
+// 路径从创建文件的时候在终端输入的相对路径开始写
+import "learn1/test5_protobuf/book/price.proto"; 
+import "learn1/test5_protobuf/animal/kinds.proto";
+import "google/protobuf/timestamp.proto";
+
+message Book {
+    string Name = 1;
+    Price price = 2;  // 相同的包不需要写包名
+    animal.Animal animal = 3; // 不同的包需要写上包名
+    google.protobuf.Timestamp data = 4; // 引用 include 包下的文件
+}
+
+// 有导入包的话 被导入的包的路径也要写下来
+// protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative learn1/test5_protobuf/book/book.proto learn1/test5_protobuf/book/price.proto

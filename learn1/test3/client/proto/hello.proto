@@ -1,0 +1,25 @@
+syntax = "proto3";  // 版本声明
+
+option go_package = "micro/learn1/test3/client/proto";  // 导入路径声明
+
+package proto;  // proto文件模块
+
+// 定义服务
+service Greeter {
+    // 定义方法
+    rpc SayHello (HelloRequest) returns (HelloResponse){}
+}
+
+// 定义消息
+message HelloRequest {
+    string name = 1; // 字段序号
+}
+
+message HelloResponse {
+    string reply = 1; 
+}
+
+// 注意这里服务器端和客户端的代码应该保持一致
+// 唯一需要更改的地方就是第二行的 路径声明，改成 client/proto
+// 然后终端输入:
+// protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative learn1/test3/client/proto/hello.proto
