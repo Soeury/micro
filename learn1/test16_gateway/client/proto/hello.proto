@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "micro/learn1/test16_gateway/client/proto";
+
+package proto;
+
+service Love {
+    rpc SayLove (LoveRequest) returns (LoveResponse){}
+}
+
+message LoveRequest {
+    string Name = 1;
+}
+
+message LoveResponse {
+    string Reply = 1;
+}

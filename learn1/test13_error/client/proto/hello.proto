@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "micro/learn1/test13_error/client/proto";
+
+package proto;
+
+service Care {
+    rpc SayHello (HelloRequest) returns (HelloResponse){}
+}
+
+message HelloRequest {
+    string Name = 1;
+}
+
+message HelloResponse {
+    string Reply = 1;
+}

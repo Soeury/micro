@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option go_package = "micro/learn1/test16_gateway/server/proto";
+
+package proto;
+
+import "google/api/annotations.proto";
+
+service Love {
+    rpc SayLove (LoveRequest) returns (LoveResponse){
+        // 写注释，grpc_gateway 需要使用到的注释
+        option (google.api.http) = {
+            post: "/v1/love"  // http接口path
+            body: "*"
+        };
+    }
+}
+
+message LoveRequest {
+    string Name = 1;
+}
+
+message LoveResponse {
+    string Reply = 1;
+}
